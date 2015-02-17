@@ -458,7 +458,7 @@ function! s:GistUpdate(content, gistid, gistnm, desc) abort
     if has_key(b:gist, 'description') | let gist['description'] = b:gist.description | endif
     if has_key(b:gist, 'filename') | let filename = b:gist.filename | endif
   else
-    let filename = a:gistnm
+    "let filename = a:gistnm
     if len(filename) == 0 | let filename = s:GistGetFileName(a:gistid) | endif
     if len(filename) == 0 | let filename = s:get_current_filename(1) | endif
   endif
@@ -482,7 +482,7 @@ function! s:GistUpdate(content, gistid, gistnm, desc) abort
     endif
   endif
 
-  let gist.files[filename] = { "content": a:content, "filename": filename }
+  let gist.files[filename] = { "content": a:content, "filename": a:gistnm }
 
   redraw | echon 'Updating gist... '
   let res = webapi#http#post(g:gist_api_url.'gists/' . a:gistid,
